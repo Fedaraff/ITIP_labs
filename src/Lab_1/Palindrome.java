@@ -24,3 +24,4 @@ public class Palindrome {
         return s.equals(reverseString(s));
     }
 }
+
