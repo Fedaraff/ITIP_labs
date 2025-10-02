@@ -1,3 +1,5 @@
+package Lab_1;
+
 public class Primes {
     public static void main(String[] args) {
         System.out.println("Простые числа меньше 100:");
