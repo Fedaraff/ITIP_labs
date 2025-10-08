@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        // Демонстрация счетчика объектов
+
         System.out.println("Счетчик объектов: " + ComputerPeripheral.getTotalObjects());
 
         // Создание объектов
@@ -17,8 +17,8 @@ public class Main {
         System.out.println("2. " + headphones.getDeviceInfo());
         System.out.println("3. " + tablet.getDeviceInfo());
 
-        // Демонстрация полиморфизма
-        System.out.println("\n=== ПОЛИМОРФИЗМ ===");
+        // Демонстрация полиморфизма (общий интерфейс - своя реализация
+        System.out.println("\nПОЛИМОРФИЗМ");
         ComputerPeripheral[] devices = {keyboard, headphones, tablet};
 
         for (ComputerPeripheral device : devices) {
@@ -26,30 +26,30 @@ public class Main {
             device.performAction();
         }
 
-        // Демонстрация инкапсуляции
-        System.out.println("\n=== ИНКАПСУЛЯЦИЯ ===");
+        // Демонстрация инкапсуляции (доступ через отдельные методы)
+        System.out.println("\n ИНКАПСУЛЯЦИЯ");
         System.out.println("Старая цена наушников: " + headphones);
         headphones.setPrice(9000);
         System.out.println("Новая цена наушников: " + headphones.getPrice());
 
         // Специфичное поведение
-        System.out.println("\n=== СПЕЦИФИЧНОЕ ПОВЕДЕНИЕ ===");
+        System.out.println("\n СПЕЦИФИЧНОЕ ПОВЕДЕНИЕ");
         keyboard.type("Hello World!");
         headphones.playMusic("My Song");
         tablet.draw();
 
         // Счетчик объектов
-        System.out.println("\n=== СЧЕТЧИК ОБЪЕКТОВ ===");
-        System.out.println("Всего создано объектов: " + ComputerPeripheral.getTotalObjects());
+        System.out.println("\n СЧЕТЧИК ОБЪЕКТОВ");
+        System.out.println("Всего создано объектов: " + ComputerPeripheral.getTotalObjects());;
 
-        // Простой ввод от пользователя
+        // Ввод от пользователя
         simpleUserInput();
     }
 
     public static void simpleUserInput() {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("\n=== СОЗДАНИЕ НОВОЙ КЛАВИАТУРЫ ===");
+        System.out.println("\n СОЗДАНИЕ НОВОЙ КЛАВИАТУРЫ");
 
         System.out.print("Введите бренд: ");
         String brand = scanner.nextLine();
@@ -68,7 +68,6 @@ public class Main {
         System.out.print("Подсветка (true/false): ");
         boolean backlight = scanner.nextBoolean();
 
-        // Создание объекта
         Keyboard userKeyboard = new Keyboard(brand, connection, price, type, backlight);
 
         System.out.println("\nСоздана клавиатура: " + userKeyboard.getDeviceInfo());
