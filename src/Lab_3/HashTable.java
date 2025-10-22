@@ -3,41 +3,21 @@ package Lab_3;
 import java.util.LinkedList;
 
 public class HashTable<K, V> {
+    private LinkedList<Entry<K, V>>[] table;
+    private int size;
+
     private static class Entry<K, V> {
-        private K key;
-        private V value;
+        K key;
+        V value;
 
         public Entry(K key, V value) {
             this.key = key;
             this.value = value;
         }
-
-        public K getKey() {
-            return key;
-        }
-
-        public V getValue() {
-            return value;
-        }
-
-        public void setValue(V value) {
-            this.value = value;
-        }
     }
 
-    private LinkedList<Entry<K, V>>[] table;
-    private int size;
-    private static final int DEFAULT_CAPACITY = 14;
-
-    @SuppressWarnings("unchecked")
     public HashTable() {
-        table = new LinkedList[DEFAULT_CAPACITY];
-        size = 0;
-    }
-
-    @SuppressWarnings("unchecked")
-    public HashTable(int capacity) {
-        table = new LinkedList[capacity];
+        table = new LinkedList[16];
         size = 0;
     }
 
@@ -47,47 +27,48 @@ public class HashTable<K, V> {
 
     public void put(K key, V value) {
         int index = hash(key);
+
         if (table[index] == null) {
             table[index] = new LinkedList<>();
         }
 
-        // Проверяем, существует ли уже запись с таким ключом
         for (Entry<K, V> entry : table[index]) {
-            if (entry.getKey().equals(key)) {
-                entry.setValue(value);
+            if (entry.key.equals(key)) {
+                entry.value = value;
                 return;
             }
         }
 
-        // Если ключ не найден, добавляем новую запись
         table[index].add(new Entry<>(key, value));
         size++;
     }
 
     public V get(K key) {
         int index = hash(key);
+
         if (table[index] != null) {
             for (Entry<K, V> entry : table[index]) {
-                if (entry.getKey().equals(key)) {
-                    return entry.getValue();
+                if (entry.key.equals(key)) {
+                    return entry.value;
                 }
             }
         }
+
         return null;
     }
 
-    public boolean remove(K key) {
+    public void remove(K key) {
         int index = hash(key);
+
         if (table[index] != null) {
             for (Entry<K, V> entry : table[index]) {
-                if (entry.getKey().equals(key)) {
+                if (entry.key.equals(key)) {
                     table[index].remove(entry);
                     size--;
-                    return true;
+                    return;
                 }
             }
         }
-        return false;
     }
 
     public int size() {
@@ -96,17 +77,5 @@ public class HashTable<K, V> {
 
     public boolean isEmpty() {
         return size == 0;
-    }
-
-    public void display() {
-        for (int i = 0; i < table.length; i++) {
-            System.out.print("Index " + i + ": ");
-            if (table[i] != null) {
-                for (Entry<K, V> entry : table[i]) {
-                    System.out.print("[" + entry.getKey() + " -> " + entry.getValue() + "] ");
-                }
-            }
-            System.out.println();
-        }
     }
 }
