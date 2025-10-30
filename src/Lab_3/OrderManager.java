@@ -30,7 +30,6 @@ public class OrderManager {
         return !orders.isEmpty();
     }
 
-    // Вложенный класс Order
     private static class Order {
         private String orderNumber;
         private List<String> products;

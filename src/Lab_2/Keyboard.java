@@ -4,12 +4,6 @@ public class Keyboard extends ComputerPeripheral {
     private String type;
     private boolean hasBacklight;
 
-    public Keyboard() {
-        super();
-        this.type = "Mechanical";
-        this.hasBacklight = false;
-    }
-
     public Keyboard(String brand, String connection, double price, String type, boolean backlight) {
         super(brand, connection, price);
         this.type = type;

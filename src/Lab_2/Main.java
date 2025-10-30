@@ -17,7 +17,7 @@ public class Main {
         System.out.println("2. " + headphones.getDeviceInfo());
         System.out.println("3. " + tablet.getDeviceInfo());
 
-        // Демонстрация полиморфизма (общий интерфейс - своя реализация
+        // Демонстрация полиморфизма (общий интерфейс - своя реализация)
         System.out.println("\nПОЛИМОРФИЗМ");
         ComputerPeripheral[] devices = {keyboard, headphones, tablet};
 

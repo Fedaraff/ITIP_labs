@@ -9,10 +9,6 @@ public abstract class ComputerPeripheral {
     private int objectId;
 
     // Конструкторы
-    public ComputerPeripheral() {
-        this("Unknown", "USB", 0);
-    }
-
     public ComputerPeripheral(String brand, String connectionType, double price) {
         this.brand = brand;
         this.connectionType = connectionType;

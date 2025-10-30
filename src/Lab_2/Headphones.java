@@ -4,12 +4,6 @@ public class Headphones extends ComputerPeripheral {
     private String type;
     private boolean noiseCancelling;
 
-    public Headphones() {
-        super();
-        this.type = "Over-ear";
-        this.noiseCancelling = false;
-    }
-
     public Headphones(String brand, String connection, double price, String type, boolean noiseCancelling) {
         super(brand, connection, price);
         this.type = type;

@@ -4,12 +4,6 @@ public class GraphicsTablet extends ComputerPeripheral {
     private int pressureLevels;
     private boolean hasTouch;
 
-    public GraphicsTablet() {
-        super();
-        this.pressureLevels = 2048;
-        this.hasTouch = false;
-    }
-
     public GraphicsTablet(String brand, String connection, double price, int levels, boolean touch) {
         super(brand, connection, price);
         this.pressureLevels = levels;
