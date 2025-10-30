@@ -8,8 +8,8 @@ public class FileCopy {
         FileOutputStream targetFile = null;
 
         try {
-            sourceFile = new FileInputStream("Lab_4_1/source.txt");
-            targetFile = new FileOutputStream("Lab_4_1/target.txt");
+            sourceFile = new FileInputStream("src/Lab_4_1/source.txt");
+            targetFile = new FileOutputStream("src/Lab_4_1/target.txt");
 
             int byteData;
             while ((byteData = sourceFile.read()) != -1) {

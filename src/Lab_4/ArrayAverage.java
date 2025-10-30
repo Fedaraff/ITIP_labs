@@ -2,11 +2,11 @@ package Lab_4;
 
 public class ArrayAverage {
     public static void main(String[] args) {
-        // Тестовые данные
         String[][] testArrays = {
-                {"1", "2", "3", "4", "5"},  // нормальный случай
-                {"1", "2", "abc", "4", "5"}, // нечисловой элемент
-                {"1", "2", "3"},              // короткий массив для демонстрации
+                {"1", "2", "3", "4", "5"},
+                {"1", "2", "abc", "4", "5"},
+                {"1", "2", "3"},
+                {"1", null, "4", "5"},
                 {}
         };
 
@@ -26,53 +26,43 @@ public class ArrayAverage {
         int sum = 0;
         int validCount = 0;
 
-        try {
-            System.out.print("Обрабатываем массив: ");
-            for (int i = 0; i < arr.length; i++) {
-                System.out.print(arr[i] + " ");
+        System.out.print("Обрабатываем массив: ");
 
-                // Проверка на null
+        for (int i = 0; i < arr.length; i++) {
+            System.out.print(arr[i] + " ");
+        }
+        System.out.println();
+
+        // Обрабатываем каждый элемент с обработкой ошибок
+        for (int i = 0; i < arr.length; i++) {
+            try {
                 if (arr[i] == null) {
                     throw new NullPointerException("Элемент массива равен null на позиции " + i);
                 }
 
-                // Парсинг элемента в число
                 int num = Integer.parseInt(arr[i]);
                 sum += num;
                 validCount++;
-            }
-            System.out.println();
 
-            // Проверка деления на ноль
+            } catch (NumberFormatException e) {
+                System.out.println("Ошибка: элемент '" + arr[i] + "' на позиции " + i + " не является числом");
+            } catch (NullPointerException e) {
+                System.out.println("Ошибка: " + e.getMessage());
+            }
+        }
+
+        try {
             if (validCount == 0) {
                 throw new ArithmeticException("Нет допустимых элементов для вычисления среднего");
             }
 
             double average = (double) sum / validCount;
-            System.out.println("Сумма элементов: " + sum);
+            System.out.println("Сумма допустимых элементов: " + sum);
             System.out.println("Количество допустимых элементов: " + validCount);
             System.out.println("Среднее арифметическое: " + average);
 
-        } catch (NumberFormatException e) {
-            System.out.println("\nОшибка: элемент массива не является числом - " + e.getMessage());
-            System.out.println("Вычисляем среднее по " + validCount + " допустимым элементам");
-            if (validCount > 0) {
-                double average = (double) sum / validCount;
-                System.out.println("Сумма допустимых элементов: " + sum);
-                System.out.println("Среднее арифметическое по допустимым элементам: " + average);
-            }
-        } catch (NullPointerException e) {
-            System.out.println("\nОшибка: " + e.getMessage());
-            System.out.println("Вычисляем среднее по " + validCount + " допустимым элементам");
-            if (validCount > 0) {
-                double average = (double) sum / validCount;
-                System.out.println("Сумма допустимых элементов: " + sum);
-                System.out.println("Среднее арифметическое по допустимым элементам: " + average);
-            }
         } catch (ArithmeticException e) {
-            System.out.println("\nОшибка: " + e.getMessage());
-        } catch (Exception e) {
-            System.out.println("\nНеожиданная ошибка: " + e.getMessage());
+            System.out.println("Ошибка: " + e.getMessage());
         }
     }
 }
