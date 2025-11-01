@@ -33,7 +33,6 @@ public class ArrayAverage {
         }
         System.out.println();
 
-        // Обрабатываем каждый элемент с обработкой ошибок
         for (int i = 0; i < arr.length; i++) {
             try {
                 if (arr[i] == null) {
