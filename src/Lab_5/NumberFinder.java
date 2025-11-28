@@ -3,7 +3,7 @@ import java.util.regex.*;
 
 public class NumberFinder {
     public static void main(String[] args) {
-        String text = "The price of the product is $19.99, there are 25 items, and temperature is -5.5 degrees";
+        String text = "Для рецепта нужно 200 грамм муки и 2 яйца.";
 
         try {
             Pattern pattern = Pattern.compile("-?\\d+\\.?\\d*");

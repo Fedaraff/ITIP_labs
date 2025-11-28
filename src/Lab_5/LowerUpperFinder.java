@@ -13,8 +13,7 @@ public class LowerUpperFinder {
             System.out.println("Найденные переходы строчная-заглавная:");
 
             while (matcher.find()) {
-                String found = matcher.group();
-                System.out.println("!" + found + "! - позиция " + matcher.start());
+                System.out.println("!" + matcher.group() + "! - позиция " + matcher.start());
             }
         } catch (PatternSyntaxException e) {
             System.out.println("Ошибка в регулярном выражении: " + e.getMessage());
