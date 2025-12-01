@@ -1,95 +1,73 @@
 package Lab_6;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
-class Product {
-    private String name;
-    private double price;
-
-    public Product(String name, double price) {
-        this.name = name;
-        this.price = price;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    @Override
-    public String toString() {
-        return name + " - " + price + " руб.";
-    }
-}
+import java.util.*;
 
 public class SalesTracker {
-    private List<Product> sales = new ArrayList<>();
+    public static void main(String[] args) {
+        Map<String, Integer> sales = new HashMap<>();
 
-    public void addSale(String name, double price) {
-        sales.add(new Product(name, price));
-        System.out.println("Добавлен: " + name + " за " + price + " руб.");
+        addSale(sales, "Яблоки");
+        addSale(sales, "Хлеб");
+        addSale(sales, "Молоко");
+        addSale(sales, "Яблоки");
+        addSale(sales, "Молоко");
+        addSale(sales, "Молоко");
+        addSale(sales, "Сыр");
+        addSale(sales, "Хлеб");
+
+        printSales(sales);
+
+        int totalSales = getTotalSales(sales);
+        System.out.println("\nОбщее количество продаж: " + totalSales);
+
+        String popular = getMostPopularProduct(sales);
+        System.out.println("Самый популярный товар: " + popular);
     }
 
-    public void showSales() {
-        System.out.println("\nСписок проданных товаров:");
+    public static void addSale(Map<String, Integer> sales, String product) {
+        sales.put(product, sales.getOrDefault(product, 0) + 1);
+        System.out.println("Продано: " + product);
+    }
+
+    public static void printSales(Map<String, Integer> sales) {
+        System.out.println("\n=== Отчет о продажах ===");
+
         if (sales.isEmpty()) {
-            System.out.println("Нет продаж");
+            System.out.println("Нет данных о продажах");
             return;
         }
-        for (int i = 0; i < sales.size(); i++) {
-            System.out.println((i + 1) + ". " + sales.get(i));
+
+        for (Map.Entry<String, Integer> entry : sales.entrySet()) {
+            String product = entry.getKey();
+            int count = entry.getValue();
+            System.out.println(product + ": продано " + count + " раз");
         }
     }
 
-    // Посчитать общую сумму продаж
-    public double getTotalSales() {
-        double total = 0;
-        for (Product product : sales) {
-            total += product.getPrice();
+    public static int getTotalSales(Map<String, Integer> sales) {
+        int total = 0;
+        for (int count : sales.values()) {
+            total += count;
         }
+
         return total;
     }
 
-    public String getMostPopularProduct() {
+    public static String getMostPopularProduct(Map<String, Integer> sales) {
         if (sales.isEmpty()) {
-            return "Нет продаж";
+            return "Нет данных";
         }
 
-        Map<String, Integer> countMap = new HashMap<>();
-        for (Product product : sales) {
-            String name = product.getName();
-            countMap.put(name, countMap.getOrDefault(name, 0) + 1);
-        }
+        String mostPopular = null;
+        int maxSales = 0;
 
-        String popular = "";
-        int maxCount = 0;
-        for (Map.Entry<String, Integer> entry : countMap.entrySet()) {
-            if (entry.getValue() > maxCount) {
-                maxCount = entry.getValue();
-                popular = entry.getKey();
+        for (Map.Entry<String, Integer> entry : sales.entrySet()) {
+            if (entry.getValue() > maxSales) {
+                maxSales = entry.getValue();
+                mostPopular = entry.getKey();
             }
         }
 
-        return popular + " (продано " + maxCount + " раз)";
-    }
-
-    public static void main(String[] args) {
-        SalesTracker tracker = new SalesTracker();
-
-        tracker.addSale("Яблоки", 50.0);
-        tracker.addSale("Хлеб", 30.0);
-        tracker.addSale("Молоко", 80.0);
-        tracker.addSale("Яблоки", 50.0);
-        tracker.addSale("Молоко", 80.0);
-        tracker.addSale("Молоко", 80.0);
-
-        tracker.showSales();
-        System.out.println("\nОбщая сумма: " + tracker.getTotalSales() + " руб.");
-        System.out.println("Самый популярный: " + tracker.getMostPopularProduct());
+        return mostPopular + " (" + maxSales + " продаж)";
     }
 }

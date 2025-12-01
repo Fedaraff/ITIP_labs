@@ -1,34 +1,30 @@
 package Lab_6;
-import java.io.File;
-import java.io.FileNotFoundException;
+
 import java.util.*;
+import java.nio.file.*;
 
 public class TopWords {
-    public static void main(String[] args) {
-        Scanner scanner = null;
-        try {
-            scanner = new Scanner(new File("src/Lab_6/text.txt"));
-        } catch (FileNotFoundException e) {
-            System.out.println("Файл не найден!");
-            return;
-        }
+    public static void main(String[] args) throws Exception {
+        String text = Files.readString(Paths.get("src/Lab_6/text.txt"));
+        Map<String, Integer> counter = new HashMap<>();
+        String[] words = text.split("\\s+");
 
-        Map<String, Integer> wordCount = new HashMap<>();
-        while (scanner.hasNext()) {
-            String word = scanner.next().toLowerCase().replaceAll("[^a-za-я]", "");
+        for (String word : words) {
+            word = word.toLowerCase().replaceAll("[^a-za-я]", "");
             if (!word.isEmpty()) {
-                wordCount.put(word, wordCount.getOrDefault(word, 0) + 1);
+                counter.put(word, counter.getOrDefault(word, 0) + 1);
             }
         }
-        scanner.close();
 
-        List<Map.Entry<String, Integer>> sortedList = new ArrayList<>(wordCount.entrySet());
-        sortedList.sort((a, b) -> b.getValue() - a.getValue());
+        List<Map.Entry<String, Integer>> sorted = new ArrayList<>(counter.entrySet());
+        sorted.sort((a, b) -> b.getValue() - a.getValue());
 
         System.out.println("Топ-10 самых частых слов:");
-        for (int i = 0; i < Math.min(10, sortedList.size()); i++) {
-            Map.Entry<String, Integer> entry = sortedList.get(i);
-            System.out.println((i + 1) + ". " + entry.getKey() + " - " + entry.getValue());
+        int limit = Math.min(10, sorted.size());
+        for (int i = 0; i < limit; i++) {
+            String word = sorted.get(i).getKey();
+            int count = sorted.get(i).getValue();
+            System.out.println((i + 1) + ". " + word + " - " + count);
         }
     }
 }
