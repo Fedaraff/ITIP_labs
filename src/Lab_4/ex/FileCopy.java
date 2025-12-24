@@ -1,4 +1,4 @@
-package Lab_4_1;
+package Lab_4.ex;
 
 import java.io.*;
 
